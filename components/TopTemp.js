@@ -1,24 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ImageBackground, StatusBar, PermissionsAndroid, useWindowDimensions, 
-    ScrollView, SafeAreaView, FlatList, ActivityIndicator, Image, TextInput, TouchableOpacity, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, Image} from 'react-native';
+
 
 const days = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const API_KEY = '78daf74e0c3e372089b6fd6202f50cfa';
 
-const TopTemp = ({main, wind, visibility, name, weather, coord}) => {
-    const img = {uri: 'http://openweathermap.org/img/wn/'+ weather[0].icon +'@2x.png'}
+const TopTemp = ({current_temp, name, current_weather}) => {
+    const img = {uri: 'http://openweathermap.org/img/wn/'+ current_weather.icon +'@2x.png'}
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
-    const [data, setData] = useState({});
 
-    useEffect (() => {
-
-        (async () => {
-            fetchDataFromApi(coord.lat, coord.lon);
-        })();
+      
 
         setInterval(() => {
             const time = new Date();
@@ -36,177 +29,41 @@ const TopTemp = ({main, wind, visibility, name, weather, coord}) => {
             setDate(days[day] + ', ' + date + ' ' + months[month]);
 
         }, 1000);
-    }, [])
+    
 
-    const fetchDataFromApi = (lat, lon) => {
-        fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
-         .then(res => res.json()).then(data => {
-             console.log("He he he he ")
-         console.log(data);
-        setData(data);
-         });
-
-        }
 
 
     return (
         <View style={styles.container}>
-            <View style={styles.temp}>
+
+            <View style={styles.location}>
+              
+                <Text style={styles.text_location}>{name}</Text>
+
+            </View>
+
+            <View style={styles.time_temp}>
 
                 <View style={styles.time}>
-                    <Text style={styles.tempFont}>{date}</Text>
-                    <Text style={styles.tempFont}>{time}</Text>
-                    <Image source={img} style={styles.image}/>
-                    <Text style={styles.tempFont}>{weather[0].main}</Text>
+                    <Text style={styles.timeFont}>{date}</Text>
+                    <Text style={styles.timeFont}>{time}</Text>
+
+                    <View style={styles.detail}>
+                        <Image source={img} style={styles.image}/>
+                        <Text style={styles.timeFont}>{current_weather.main}</Text>
+                    </View>
                 </View>
-                <View style={styles.main}>
-                    <Text style={styles.mainTemp}>{Math.floor(main.temp)}&#176;C</Text>
+
+                <View style={styles.temp}>
+                
+                    <Text style={styles.tempFont}>{Math.floor(current_temp)}&#176;C</Text>
+                    
 
                 </View>
+                
             </View>
-            <View style={styles.detail}>
-                <View style={styles.detailTop}>
-                    {/* Độ ẩm */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>{main.humidity}</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: main.humidity / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* Sức gió */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Sức gió</Text>
-                        <Text style={styles.textDetail}>{wind.speed}</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: wind.speed / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* Tầm nhìn */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Tầm nhìn</Text>
-                        <Text style={styles.textDetail}>{Math.floor(visibility/1000)}</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: Math.floor(visibility/1000) / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* Áp suất */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>50</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-
-                </View>
-                <View style={styles.detailBottom}>
-                    {/* NO2 */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}></Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* PM10 */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>50</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* O3 */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>50</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* PM25 */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>50</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-                    {/* Độ ẩm */}
-                    <View style={styles.weatherList}>
-                        <Text style={styles.textDetail}>Độ ẩm</Text>
-                        <Text style={styles.textDetail}>50</Text>
-                        <Text style={styles.textDetail}>%</Text>
-                        <View style={styles.infoBar}>
-                            <View
-                            style={{
-                                width: 50 / 2,
-                                height: 5,
-                                backgroundColor: 'yellow',
-                            }}
-                            />
-                        </View>
-                    </View> 
-
-                </View>
-            </View>
+            
+        
         </View>
     )
 }
@@ -215,62 +72,53 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    temp: {
-        flex: 5,
-        backgroundColor: 'blue',
+    time_temp: {
+        flex: 3,
         flexDirection: 'row',
+
+    },
+    location: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        
     },
     time: {
-        margin: 2,
-    },
-    detail: {
-        flex: 6
-    },
-    detailTop: {
         flex: 1,
-        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
-        
 
     },
-    detailBottom: {
+    temp: {
         flex: 1,
-        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
+
+        
     },
     image: {
-        width: 70,
-        height: 70,
+        width: 50,
+        height: 50,
+    },
+    timeFont: {
+        fontSize: 20,
+        color: 'white',
     },
     tempFont: {
-        fontSize: 15,
+        fontSize: 90,
         color: 'white',
-    },
-    main: {
-        // marginRight: "10%",
-    },
-    mainTemp: {
-        fontSize: 100,
-        color: 'white'
 
     },
-    weatherList: {
+    detail: {
+        flexDirection: 'row',
         alignItems: 'center',
-        margin: 15,
-
+        justifyContent: 'center',
     },
-    textDetail: {
+    text_location: {
+        fontSize: 30,
         color: 'white',
-        fontSize: 14,
-        
+        fontWeight: 'bold'
     },
-    infoBar: {
-        width: 45,
-        height: 5,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-      },
 
 
 
