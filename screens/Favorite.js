@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground, StatusBar, PermissionsAndroid, useWindowDimensions, 
-  ScrollView, SafeAreaView, FlatList, ActivityIndicator, Image, TextInput, Button, TouchableOpacity, Modal, Alert } from 'react-native';
+  ScrollView, SafeAreaView, FlatList, ActivityIndicator, Image, TextInput, Button, TouchableOpacity, Modal, Alert, AppState } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,86 +8,88 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Weather from './mini_screens/Weather';
 import Home from './Home';
-
-
-const DATA = [
-  {id: 1, text: 'Hà Nội'},
-  {id: 2, text: 'Hải Dương'},
-  {id: 3, text: 'Nam Định'},
-  {id: 4, text: 'Thái Bình'},
-  {id: 5, text: 'Hải Phòng'},
-]
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import "firebase/auth";
+import { getDatabase, ref, set, push, onValue, remove  } from "firebase/database";
+import "firebase/firestore";
+import "firebase/functions";
+import "firebase/storage";
 
 const HomeScreen = ({ navigation }) => {
-  const {width: windowWidth, height: windowHeight} = useWindowDimensions();
-  const [data, setData] = useState(DATA);
-  const [isModalVisible, setisModalVisible] = useState(false);
-  const [inputText, setinputText] = useState();
-  const [editItem, seteditItem] = useState();
-  const [isRender, setisRender] = useState(false);
+  const [data, setData] = useState([]);
+  const [sizeDB, setSizeDB] = useState(0);
   const [text, setText] = React.useState("");
-
-  const [isWeatherVisible, setisWeatherVisible] = useState(false);
-  const [name, setname] = useState();
-
-  const onPressItem = (item) => {
-    setisModalVisible(true);
-    setinputText(item.text);
-    seteditItem(item.id);
-
-  }
-
-  const onPressButton = (item) => {
-    setisWeatherVisible(true);
-    setname(item.text);
+  useEffect(() => {
+    const config = {  
+        apiKey: "AIzaSyDGmR7nX8uRcOMfiewHQg2YS8YqQ-9c-as",
+        authDomain: "weatherv2-5fca8.firebaseapp.com",
+        databaseURL: "https://weatherv2-5fca8-default-rtdb.firebaseio.com",
+        projectId: "weatherv2-5fca8",
+        storageBucket: "weatherv2-5fca8.appspot.com",
+        messagingSenderId: "15770291457",
+        appId: "1:15770291457:web:0387f1c7b0bf0a5f02df00",
+        measurementId: "G-ZF9SJVL2Z5",
+    };
     
+    getApps().length === 0 ? initializeApp(config) : getApp();
+    GET_DB()
+  }, [])
 
-  }
-  
-
-  const onPressSave = () => {
-    const newData = data.map(item => {
-      if (item.id == editItem) {
-        item.text = inputText;
-        return item;
-      }
-      return item;
+  const GET_DB = () => {
+    const db = getDatabase();
+    const starCountRef = ref(db, 'city/');
+    onValue(starCountRef, (snapshot) => {
+        const Size = snapshot.size;
+        console.log("There are " + Size);
+        setSizeDB(Size)
+        if(Size > 0){
+            let item_data = snapshot.val();
+            
+            var i
+            let data_temp = []
+            if(Size <= 5){
+              i = Size - 1
+              while(i >= 0){
+                data_temp.push({
+                      id: Object.keys(item_data)[i],
+                      name: Object.values(item_data)[i].City
+                  })
+                  i--;
+              }
+              setData(data_temp)
+              console.log(data_temp)
+            }else{
+              for(i = Size-1; i > Size - 6; i--){
+                    data_temp.push({
+                          id: Object.keys(item_data)[i],
+                          name: Object.values(item_data)[i].City
+                      })
+              }
+              setData(data_temp)
+              console.log(data_temp)
+            }
+          }
     })
 
-    setData(newData)
-    setisModalVisible(false);
-    setisRender(!isRender);
   }
 
-  const renderItem = ({item, index}) => {
-    return (
-      
-      <TouchableOpacity style={styles.item} onPress={() => 
-          navigation.navigate('Detail', {
-              nameCity: item.text
-          })
+const addCity = (cityName) => {
+  const db = getDatabase();
+  push(ref(db, 'city/'), {
+      City: cityName
+  }, function (error) {
+      if(error) {
+          alert("Loi")
+      }else{
+          alert("Thanh cong")
+      }
+  })
+}
 
-        }>
-        <View style={styles.nameCity}>
-          <Text style={styles.text}>{item.text}</Text>
-
-        </View>
-
-        <View style={styles.button}>
-          <Button
-              title="Sửa"
-              onPress={() => {
-                onPressItem(item)
-
-              }}
-               
-          />
-
-        </View>
-      </TouchableOpacity>
-    )
-
-  };
+const deleteCity = (id) => {
+  const db = getDatabase();
+  remove(ref(db, 'city/' + id))
+}
 
   return (
     <View style={styles.containerHome}>
@@ -104,9 +106,10 @@ const HomeScreen = ({ navigation }) => {
           <Button
             title="Tìm"
             onPress={() => {
-              navigation.navigate('Detail', {
-              nameCity: text,
-              });
+              addCity(text)
+              // navigation.navigate('Detail', {
+              // nameCity: text,
+              // });
             }}
           />
           </View>
@@ -115,34 +118,31 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.containerCenter}>
-
-      <FlatList data={data} keyExtractor={(item) => item.id.toString()} 
-        renderItem={renderItem} extraData={isRender}/>
-
-        <Modal animationType='fade' visible={isModalVisible} onRequestClose={() => setisModalVisible(false)}>
-
-          <View style={styles.modalView}>
-              <Text style={styles.text}>Thành phố yêu thích</Text>
-              <TextInput 
-                style={styles.textInput} 
-                onChangeText={(text) => setinputText(text)}
-                defaultValue={inputText}
-                editable={true}
-                multiline={false}
-                maxLength={20}
-              
-              />
-              
-
-              <TouchableOpacity style={styles.touchSave} onPress={() => {onPressSave()}}>
-                <Text style={styles.text}>Lưu</Text>
-
-              </TouchableOpacity>
-
-          </View>
-
-        </Modal>
-
+          <FlatList data={data} keyExtractor={(item) => item.id.toString()} 
+               renderItem={({item, index}) => {
+                return ( 
+                  <TouchableOpacity style={styles.item} onPress={() => {
+                     navigation.navigate('Detail', {
+                     nameCity: item.name,
+                     });
+                  }}
+                  >
+                    <View style={styles.nameCity}>
+                      <Text style={styles.text}>{item.name}</Text>
+            
+                    </View>
+            
+                    <View style={styles.button}>
+                      <Button onPress={()=> {
+                        deleteCity(item.id)
+                      }}
+                          title="Xóa"                          
+                      />
+                    </View>
+                  </TouchableOpacity>
+                )
+            
+              }}/>
       </View>
 
     </View>
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     nameCity: {
       flex: 2,
       alignItems: 'flex-start',
-      justifyContent: 'center'
+      justifyContent: 'center',
 
     },
     button: {

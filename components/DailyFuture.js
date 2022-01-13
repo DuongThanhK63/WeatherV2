@@ -92,8 +92,8 @@ const CurrentWeather = ({d_min, d_max, d_icon}) => {
             </View>
 
             <View style={styles.temp}>
-                <Text style={styles.text}>T: {d_min}&#176;C</Text>
-                <Text style={styles.text}>C: {d_max}&#176;C</Text>
+                <Text style={styles.text}>T: {Math.floor(d_min)}&#176;C</Text>
+                <Text style={styles.text}>C: {Math.floor(d_max)}&#176;C</Text>
             </View>
 
         </View>
@@ -115,8 +115,8 @@ const FutureItem = ({d_min, d_max, d_icon, day}) => {
             </View>
 
             <View style={styles.temp}>
-                <Text style={styles.text}>T: {d_min}&#176;C</Text>
-                <Text style={styles.text}>C: {d_max}&#176;C</Text>
+                <Text style={styles.text}>T: {Math.floor(d_min)}&#176;C</Text>
+                <Text style={styles.text}>C: {Math.floor(d_max)}&#176;C</Text>
             </View>
 
         </View>

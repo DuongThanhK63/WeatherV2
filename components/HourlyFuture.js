@@ -82,7 +82,7 @@ const CurrentWeather = ({h_temp0, h_icon0}) => {
         <View style={styles.futureContainer}>
             <Text style={styles.text}>Bây giờ</Text>
             <Image source={img} style={styles.image}/>
-            <Text style={styles.text}>{h_temp0}&#176;C</Text>
+            <Text style={styles.text}>{Math.floor(h_temp0)}&#176;C</Text>
         
         </View>
 
@@ -95,7 +95,7 @@ const FutureItem = ({h_temp, h_icon, hour}) => {
         <View style={styles.futureContainer}>
             <Text style={styles.text}>{hour}</Text>
             <Image source={img} style={styles.image}/>
-            <Text style={styles.text}>{h_temp}&#176;C</Text>
+            <Text style={styles.text}>{Math.floor(h_temp)}&#176;C</Text>
     
         </View>
     )

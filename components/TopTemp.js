@@ -71,6 +71,7 @@ const TopTemp = ({current_temp, name, current_weather}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        
     },
     time_temp: {
         flex: 3,
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     tempFont: {
-        fontSize: 90,
+        fontSize: 80,
         color: 'white',
 
     },
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text_location: {
-        fontSize: 30,
+        fontSize: 27,
         color: 'white',
         fontWeight: 'bold'
     },

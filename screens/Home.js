@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { StyleSheet, Text, View, ImageBackground, StatusBar, PermissionsAndroid, useWindowDimensions, 
-  ScrollView, SafeAreaView, FlatList, ActivityIndicator, Image, TextInput, Button } from 'react-native';
+  ScrollView, SafeAreaView, FlatList, ActivityIndicator, Image, TextInput, Button, Platform } from 'react-native';
 
 import * as Location from 'expo-location';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
 
 import TopTemp from '../components/TopTemp';
 import HourlyFuture from '../components/HourlyFuture';
@@ -12,8 +14,20 @@ import Detail from '../components/Detail';
 
 const API_KEY = '78daf74e0c3e372089b6fd6202f50cfa';
 
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
 
 const Home = () => {
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
     // Top container
     const [current_weather, setcurrent_weather] = useState('')
     const [current_temp, setcurrent_temp] = useState('')
@@ -91,7 +105,9 @@ const Home = () => {
     const {width: windowWidth, height: windowHeight} = useWindowDimensions();
 
     useEffect(() => {
+        // Notifications.scheduleNotificationAsync(sendPushNotification(expoPushToken), schedulingOptions)
 
+        
         (async () => {
           let { status } = await Location.requestForegroundPermissionsAsync();
           if (status !== 'granted') {
@@ -107,8 +123,125 @@ const Home = () => {
           current_fetchDataFromApi(location.coords.latitude, location.coords.longitude);
           current_AirFromApi(location.coords.latitude, location.coords.longitude);
 
+        //   Notifications.scheduleNotificationAsync(sendPushNotification(expoPushToken), schedulingOptions)
+        await Notifications.cancelAllScheduledNotificationsAsync();
+        await Notifications.scheduleNotificationAsync({
+            identifier: "identifer1",
+            content: {
+              title: `${name}`,
+              body: `Nhiệt độ hiện tại ${current_temp}`,
+              data: { data: "goes here" },
+            },
+            trigger: {
+              hour: 17,
+              minute: 14,
+              repeats: true,
+            },
+          });
+
+          await Notifications.scheduleNotificationAsync({
+            identifier: "identifer2",
+            content: {
+              title: `${name}`,
+              body: `Nhiệt độ hiện tại ${current_temp}`,
+              data: { data: "goes here" },
+            },
+            trigger: {
+              hour: 17,
+              minute: 10,
+              repeats: true,
+            },
+          });
+
+          await Notifications.scheduleNotificationAsync({
+            identifier: "identifer3",
+            content: {
+              title: `${name}`,
+              body: `Nhiệt độ hiện tại ${current_temp}`,
+              data: { data: "goes here" },
+            },
+            trigger: {
+              hour: 17,
+              minute: 12,
+              repeats: true,
+            },
+          });
+
         })();
+
+        
+        // Push Notification
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+        // This listener is fired whenever a notification is received while the app is foregrounded
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+        });
+
+        // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response);
+        });
+
+        return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+        };
+
+        
       }, [])
+
+    //   async function sendPushNotification(expoPushToken) {
+    //     const message = {
+    //       to: expoPushToken,
+    //       sound: 'default',
+    //       title: `${name}`,
+    //       body: `Nhiệt độ hiện tại ${current_temp}`,
+    //       data: { someData: 'goes here' },
+    //     };
+
+
+    //     await fetch('https://exp.host/--/api/v2/push/send', {
+    //       method: 'POST',
+    //       headers: {
+    //         Accept: 'application/json',
+    //         'Accept-encoding': 'gzip, deflate',
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(message),
+    //     });
+    //   }
+      
+      async function registerForPushNotificationsAsync() {
+        let token;
+        if (Constants.isDevice) {
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+      
+        if (Platform.OS === 'android') {
+          Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+          });
+        }
+      
+        return token;
+      }
 
       const onecall_fetchDataFromApi = (latitude, longitude) => {
         if(latitude && longitude) {
