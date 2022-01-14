@@ -122,8 +122,10 @@ const Home = () => {
             await Notifications.scheduleNotificationAsync({
                 identifier: "identifer1",
                 content: {
-                    title: `${name}`,
-                    body: `Thời tiết hôm nay: ${Math.floor(d_min0)}/${Math.floor(d_max0)} C`,
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
                     data: { data: "goes here" },
                 },
                 trigger: {
@@ -132,17 +134,308 @@ const Home = () => {
                     repeats: true,
                 },
             });
-            // Thong bao buoi toi
+            // Thong bao test
             await Notifications.scheduleNotificationAsync({
                 identifier: "identifer2",
                 content: {
-                    title: `${name}`,
-                    body:  `Thời tiết hôm nay: ${Math.floor(d_min0)}/${Math.floor(d_max0)} C`,
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
                     data: { data: "goes here" },
                 },
                 trigger: {
-                    hour: 23,
-                    minute: 8,
+                    hour: 13,
+                    minute: 0,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer3",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 13,
+                    minute: 10,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer4",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 13,
+                    minute: 20,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer5",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 13,
+                    minute: 30,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer6",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 13,
+                    minute: 40,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer7",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 13,
+                    minute: 50,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer8",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 0,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer9",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 10,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer10",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 20,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer11",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 30,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer12",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 40,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer13",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 14,
+                    minute: 50,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer14",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 0,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer15",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 10,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer16",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 20,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer17",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 30,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer18",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 40,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer19",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 15,
+                    minute: 50,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer20",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 0,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer21",
+                content: {
+                    title: `Thời tiết tại ${name}`,
+                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
+                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
+                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 30,
                     repeats: true,
                 },
             });

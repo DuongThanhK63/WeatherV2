@@ -82,6 +82,15 @@ const Detail = ({ wind_speed, visibility, humidity, pressure, current_co, curren
                     <Text style={styles.textDetail}>NO2</Text>
                     <Text style={styles.textDetail}>{no2.toFixed(2)}</Text>
                     <Text style={styles.textDetail}>ug/m3</Text>
+                    <View style={styles.infoBar}>
+                        <View
+                            style={{
+                                width: no2 / 2,
+                                height: 5,
+                                backgroundColor: 'yellow',
+                            }}
+                        />
+                    </View>
 
                 </View>
                 {/* UV */}
@@ -89,6 +98,15 @@ const Detail = ({ wind_speed, visibility, humidity, pressure, current_co, curren
                     <Text style={styles.textDetail}>UV</Text>
                     <Text style={styles.textDetail}>{uvi.toFixed(2)}</Text>
                     <Text style={styles.textDetail}>index</Text>
+                    <View style={styles.infoBar}>
+                        <View
+                            style={{
+                                width: uvi * 3,
+                                height: 5,
+                                backgroundColor: 'orange',
+                            }}
+                        />
+                    </View>
 
                 </View>
                 {/* CO */}
@@ -96,12 +114,30 @@ const Detail = ({ wind_speed, visibility, humidity, pressure, current_co, curren
                     <Text style={styles.textDetail}>CO</Text>
                     <Text style={styles.textDetail}>{co.toFixed(2)}</Text>
                     <Text style={styles.textDetail}>ug/m3</Text>
+                    <View style={styles.infoBar}>
+                        <View
+                            style={{
+                                width: co / 80,
+                                height: 5,
+                                backgroundColor: 'green',
+                            }}
+                        />
+                    </View>
                 </View>
                 {/* PM25 */}
                 <View style={styles.weatherList}>
                     <Text style={styles.textDetail}>PM25</Text>
                     <Text style={styles.textDetail}>{pm25.toFixed(2)}</Text>
                     <Text style={styles.textDetail}>ug/m3</Text>
+                    <View style={styles.infoBar}>
+                        <View
+                            style={{
+                                width: pm25 / 5,
+                                height: 5,
+                                backgroundColor: 'red',
+                            }}
+                        />
+                 </View>
                 </View>
 
             </View>
