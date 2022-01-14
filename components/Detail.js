@@ -85,7 +85,7 @@ const Detail = ({ wind_speed, visibility, humidity, pressure, current_co, curren
                     <View style={styles.infoBar}>
                         <View
                             style={{
-                                width: no2 / 2,
+                                width: no2 / 5,
                                 height: 5,
                                 backgroundColor: 'yellow',
                             }}
