@@ -133,87 +133,6 @@ const Home = () => {
                 },
             });
 
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer4",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 0,
-                    repeats: true,
-                },
-            });
-
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer2",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 10,
-                    repeats: true,
-                },
-            });
-
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer3",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 20,
-                    repeats: true,
-                },
-            });
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer5",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 30,
-                    repeats: true,
-                },
-            });
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer6",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 40,
-                    repeats: true,
-                },
-            });
-            await Notifications.scheduleNotificationAsync({
-                identifier: "identifer7",
-                content: {
-                    title: `Thời tiết tại Hà Nội`,
-                    body: "Mist : 15-22 C",
-                    data: { data: "goes here" },
-                },
-                trigger: {
-                    hour: 16,
-                    minute: 50,
-                    repeats: true,
-                },
-            });
-
         })();
 
         // Push Notification
@@ -269,7 +188,8 @@ const Home = () => {
 
     const onecall_fetchDataFromApi = (latitude, longitude) => {
         if (latitude && longitude) {
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&lang=vi&appid=${API_KEY}`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}
+            &lon=${longitude}&units=metric&lang=vi&appid=${API_KEY}`)
                 .then(res => res.json()).then(data => {
 
                     console.log(data);
@@ -351,7 +271,8 @@ const Home = () => {
 
     const current_fetchDataFromApi = (latitude, longitude) => {
         if (latitude && longitude) {
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=vi&appid=${API_KEY}`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}
+            &lon=${longitude}&units=metric&lang=vi&appid=${API_KEY}`)
                 .then(res => res.json()).then(data => {
 
                     console.log(data);
@@ -364,7 +285,8 @@ const Home = () => {
 
     const current_AirFromApi = (latitude, longitude) => {
         if (latitude && longitude) {
-            fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`)
+            fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=$
+            {latitude}&lon=${longitude}&appid=${API_KEY}`)
                 .then(res => res.json()).then(data => {
 
                     console.log(data);
