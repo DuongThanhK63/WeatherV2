@@ -16,7 +16,7 @@ const App = () => {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Home" component={Home} options={{ headerShown: false, }} />
-        <Drawer.Screen name="Favorite" component={Favorite} options={{ headerShown: false, }} />
+        <Drawer.Screen name="Search" component={Favorite} options={{ headerShown: false, }} />
 
       </Drawer.Navigator>
     </NavigationContainer>

@@ -123,14 +123,93 @@ const Home = () => {
                 identifier: "identifer1",
                 content: {
                     title: `Thời tiết tại ${name}`,
-                    body: "Nhiệt độ : " + Math.floor(d_min0) + "/" + Math.floor(d_max0) + " C. " 
-                            + "\n" + "Chỉ số UV: " + Math.floor(current_uvi) + 
-                            ".  Chỉ số PM25: " + Math.floor(current_pm25),
+                    body: `${current_weather} : ${Math.floor(d_min0)} / ${Math.floor(d_max0)} C`,
                     data: { data: "goes here" },
                 },
                 trigger: {
                     hour: 7,
                     minute: 0,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer4",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 0,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer2",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 10,
+                    repeats: true,
+                },
+            });
+
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer3",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 20,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer5",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 30,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer6",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 40,
+                    repeats: true,
+                },
+            });
+            await Notifications.scheduleNotificationAsync({
+                identifier: "identifer7",
+                content: {
+                    title: `Thời tiết tại Hà Nội`,
+                    body: "Mist : 15-22 C",
+                    data: { data: "goes here" },
+                },
+                trigger: {
+                    hour: 16,
+                    minute: 50,
                     repeats: true,
                 },
             });

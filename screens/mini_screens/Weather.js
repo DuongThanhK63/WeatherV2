@@ -221,7 +221,7 @@ const Weather = ({ nameCity }) => {
                         d_min2={d_min2} d_max2={d_max2} d_icon2={d_icon2}
                         d_min3={d_min3} d_max3={d_max3} d_icon3={d_icon3}
                         d_min4={d_min4} d_max4={d_max4} d_icon4={d_icon4}
-                        d_min5={d_min4} d_max5={d_max5} d_icon5={d_icon5}
+                        d_min5={d_min5} d_max5={d_max5} d_icon5={d_icon5}
                         d_min6={d_min6} d_max6={d_max6} d_icon6={d_icon6}
                     />
                 </ScrollView>
